@@ -34,5 +34,3 @@ services:
 secrets:
   .htpasswd:
     file: ./.htpasswd
-  user_password:
-    file: 
