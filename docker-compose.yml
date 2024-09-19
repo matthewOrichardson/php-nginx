@@ -7,7 +7,8 @@ services:
     environment:
       - VIRTUAL_HOST=esphome.*
     volumes:
-      - ./default.conf:/opt/docker/etc/nginx/vhost.common.d/10-location-root.conf	
+      - ./default.conf:/opt/docker/etc/nginx/vhost.common.d/10-location-root.conf
+      - ./index.php:/app/index.php
   esphome:
     container_name: esphome
     image: ghcr.io/esphome/esphome
