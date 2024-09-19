@@ -38,8 +38,8 @@ services:
     volumes:
       - ../Lockout-V3:/app
       - ${OUTPUT_DIR}:/tmp/lockout-templates
-    # environment:
-      # - PATH="${PATH}:/root/.local/bin"
+    environment:
+      - PATH="${PATH}:/root/.local/bin"
     command: >
       sh -c "npm install && node index.js
       --group ${CIVICRM_GROUP_ID}
