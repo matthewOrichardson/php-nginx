@@ -32,6 +32,6 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
-    secrets:
-      htpasswd:
-        file: ./passwordfile.txt
+secrets:
+  htpasswd:
+    file: ./passwordfile.txt
