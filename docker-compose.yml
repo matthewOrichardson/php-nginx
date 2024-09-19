@@ -1,0 +1,29 @@
+services:
+
+  php-nginx:
+    container_name: php-nginx
+    image: webdevops/php-nginx:8.2-alpine
+    restart: unless-stopped
+    environment:
+      - VIRTUAL_HOST=esphome.*
+  esphome:
+    container_name: esphome
+    image: ghcr.io/esphome/esphome
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+    environment:
+      - ESPHOME_DASHBOARD_USE_PING=true
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}
+      - VIRTUAL_HOST=dash.esphome.*
+  nginxproxy:
+    container_name: nginxproxy
+    image: nginxproxy/nginx-proxy
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/tmp/docker.sock
+    restart: unless-stopped
+    ports:
+      - 80:80
