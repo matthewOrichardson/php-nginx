@@ -9,7 +9,7 @@ services:
       - ./default.conf:/opt/docker/etc/nginx/vhost.common.d/10-location-root.conf
       - ./index.php:/app/index.php
     secrets:
-      - htpasswd
+      - .htpasswd
   esphome:
     container_name: esphome
     image: ghcr.io/esphome/esphome
@@ -32,5 +32,5 @@ services:
     ports:
       - 80:80
 secrets:
-  htpasswd:
+  .htpasswd:
     file: ./passwordfile.txt
