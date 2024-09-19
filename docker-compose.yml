@@ -1,5 +1,4 @@
 services:
-
   php-nginx:
     container_name: php-nginx
     image: webdevops/php-nginx:8.2-alpine
@@ -9,6 +8,9 @@ services:
     volumes:
       - ./default.conf:/opt/docker/etc/nginx/vhost.common.d/10-location-root.conf
       - ./index.php:/app/index.php
+      - ./.htpasswd:/.htpasswd
+    secrets:
+      - htpasswd
   esphome:
     container_name: esphome
     image: ghcr.io/esphome/esphome
@@ -30,3 +32,6 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
+    secrets:
+      htpasswd:
+        file: ./passwordfile.txt
