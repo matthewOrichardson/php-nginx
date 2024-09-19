@@ -31,6 +31,31 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
+  node:
+    container_name: node
+    image: node:20-bookworm
+    working_dir: /app
+    volumes:
+      - ../Lockout-V3:/app
+      - ${OUTPUT_DIR}:/tmp/lockout-templates
+    # environment:
+      # - PATH="${PATH}:/root/.local/bin"
+    command: >
+      sh -c "npm install && node index.js
+      --group ${CIVICRM_GROUP_ID}
+      --key ${CIVICRM_KEY}
+      --apiKey ${CIVICRM_API_KEY}
+      --dns ${DNS}
+      --subnet ${SUBNET}
+      --gateway ${GATEWAY}
+      --ip ${IP}
+      --wifiPass ${WIFI_PASS}
+      --wifiName ${WIFI_NAME}
+      --activeTime ${ACTIVE_TIME}
+      --pin ${PIN}
+      --name ${LOCKOUT_NAME}
+      ${INITIAL}
+      --output /tmp/lockout-templates"
 secrets:
   .htpasswd:
     file: ./.htpasswd
